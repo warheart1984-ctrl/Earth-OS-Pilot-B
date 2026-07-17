@@ -75,12 +75,12 @@ EarthOS-Pilot-B/
 
 ## CIEMS Constitutional Alignment
 
-EarthOS Pilot B maps to CIEMS sovereignty layers:
+EarthOS Pilot B maps to CIEMS (Constitutional Intent, Evidence & Mandate System) sovereignty layers:
 
 | CIEMS Layer | EarthOS Artifact |
 |-------------|-----------------|
-| Constitution | CESF v1.1 Core Principles |
-| Specification | CESF v1.1 Normative Standards |
+| Constitution | CESF v1.2 Core Principles |
+| Specification | CESF v1.2 Normative Standards |
 | Schema | CAL, CRC, CPBA, CPRM JSON Schemas |
 | Conformance | CCT Ω∞ L4–L5 test suites |
 | Implementation | Federated CGE |
@@ -153,8 +153,11 @@ See individual component documentation for specific licensing information.
 
 For questions about EarthOS Pilot B participation, refer to the architecture documentation and CIEMS alignment guidelines.
 
+*CIEMS canonical definition: `.codex/cse/specs/ftg/docs/CIEMS-CANONICAL-STANDARD.md`*
+
 ---
 
 *Repository Version: Pilot B*  
 *Last Updated: 2026-07-17*  
+*CESF alignment: v1.1 → v1.2 (2026-07-17 drift correction)*  
 *Maintainer: warheart1984-ctrl*

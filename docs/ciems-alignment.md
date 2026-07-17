@@ -8,8 +8,8 @@ Map EarthOS artifacts to CIEMS sovereignty layers, treat EarthOS pilots as CIEMS
 
 | CIEMS Layer | EarthOS Artifact |
 |-------------|-----------------|
-| Constitution | CESF v1.1 Core Principles (determinism, non-compensation, append-only, replay equivalence, transparency) |
-| Specification | CESF v1.1 Normative Standards (CAS, CMS, CCT, CPBA, CPRM) |
+| Constitution | CESF v1.2 Core Principles (determinism, non-compensation, append-only, replay equivalence, transparency) |
+| Specification | CESF v1.2 Normative Standards (CAS, CMS, CCT, CPBA, CPRM) |
 | Schema | CAL, CRC, CPBA, CPRM JSON Schemas |
 | Conformance | CCT Ω∞ L0–L5 test suites |
 | Implementation | CGE reference (EarthOS Pilot A), Federated CGE (Pilot B), Robotics CGE (Pilot C) |
