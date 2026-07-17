@@ -26,8 +26,11 @@ tmp/
 temp/
 *.tmp
 
-# Node Modules (if added later)
+# Node Modules
 node_modules/
+dist/
+*.js.map
+*.d.ts
 
 # Python
 __pycache__/
