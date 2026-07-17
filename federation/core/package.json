@@ -1,0 +1,14 @@
+{
+  "name": "@earthos/pilot-b-federation-core",
+  "version": "1.0.0",
+  "description": "EarthOS Pilot B — Federation Core (cross-cluster CAL, CRC, treaty engine)",
+  "type": "module",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "node --test dist/**/*.test.js"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}

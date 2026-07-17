@@ -1,0 +1,53 @@
+{
+  "suite_id": "CCT-L4",
+  "level": "L4",
+  "description": "Federated Conformance — Multi-cluster authorization consistency across federated nodes",
+  "tests": [
+    {
+      "id": "L4-001",
+      "description": "Federated token issued in Cluster A is recognized in Cluster B under treaty",
+      "steps": [
+        { "action": "sign_treaty", "treaty_id": "treaty-ab", "clusters": ["cluster-a", "cluster-b"], "recognize_tokens": true },
+        { "action": "issue_federated", "cluster": "cluster-a", "issued_by": "steward:root-a", "issued_to": "agent:alice", "treaty_id": "treaty-ab" },
+        { "action": "import_token", "cluster": "cluster-b", "treaty_id": "treaty-ab", "token_ref": 1 },
+        { "action": "validate_federated", "cluster": "cluster-b", "capability": "git:repo:read", "resource": "repo:shared", "actor": "agent:alice", "expected": "allow" }
+      ],
+      "expected": "cross_cluster_authorization"
+    },
+    {
+      "id": "L4-002",
+      "description": "Revocation propagates across federated clusters",
+      "steps": [
+        { "action": "sign_treaty", "treaty_id": "treaty-ab", "propagate_revocation": true },
+        { "action": "issue_federated", "cluster": "cluster-a", "actor": "steward:root-a" },
+        { "action": "import_token", "cluster": "cluster-b", "treaty_ref": 0, "token_ref": 1 },
+        { "action": "revoke", "cluster": "cluster-a", "token_ref": 1 },
+        { "action": "validate_federated", "cluster": "cluster-b", "expected": "deny" }
+      ],
+      "expected": "revocation_propagated"
+    },
+    {
+      "id": "L4-003",
+      "description": "Federated registry hash chains are independently verifiable",
+      "steps": [
+        { "action": "issue_federated", "cluster": "cluster-a" },
+        { "action": "issue_federated", "cluster": "cluster-a" },
+        { "action": "import_token", "cluster": "cluster-b", "token_ref": 0 },
+        { "action": "snapshot_both" }
+      ],
+      "expected": "hash_chains_independently_valid"
+    },
+    {
+      "id": "L4-004",
+      "description": "Cross-cluster delegation preserves authority chain",
+      "steps": [
+        { "action": "sign_treaty", "treaty_id": "treaty-ab" },
+        { "action": "issue_federated", "cluster": "cluster-a", "issued_to": "agent:bob" },
+        { "action": "import_token", "cluster": "cluster-b", "token_ref": 1 },
+        { "action": "delegate_federated", "cluster": "cluster-b", "source_ref": 2, "issued_to": "agent:alice", "capabilities": ["git:repo:read"] },
+        { "action": "validate_federated", "cluster": "cluster-b", "token_ref": 3, "expected": "allow" }
+      ],
+      "expected": "delegation_chain_intact"
+    }
+  ]
+}

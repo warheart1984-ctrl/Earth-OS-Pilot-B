@@ -1,0 +1,25 @@
+[
+  {
+    "vector_id": "frv-001",
+    "description": "Cross-cluster issue, import, validate",
+    "clusters": ["cluster-a", "cluster-b"],
+    "treaty": { "treaty_id": "treaty-ab", "recognize_tokens": true, "propagate_revocation": true },
+    "steps": [
+      { "action": "issue", "cluster": "cluster-a", "issued_by": "steward:root-a", "issued_to": "agent:alice", "capabilities": ["federation:read"], "resources": ["shared:docs"], "time_limit_ms": 9999999999999, "intent_version": 1 },
+      { "action": "import", "cluster": "cluster-b", "source_cluster": "cluster-a", "treaty_ref": 0, "token_ref": 0 },
+      { "action": "validate", "cluster": "cluster-b", "token_ref": 1, "capability": "federation:read", "resource": "shared:docs", "actor": "agent:alice", "expected": "allow" }
+    ]
+  },
+  {
+    "vector_id": "frv-002",
+    "description": "Cross-cluster revocation propagation",
+    "clusters": ["cluster-a", "cluster-b"],
+    "treaty": { "treaty_id": "treaty-ab", "propagate_revocation": true },
+    "steps": [
+      { "action": "issue", "cluster": "cluster-a", "issued_by": "steward:root-a", "issued_to": "agent:alice", "capabilities": ["federation:read"], "resources": ["shared:docs"], "time_limit_ms": 9999999999999, "intent_version": 1 },
+      { "action": "import", "cluster": "cluster-b", "source_cluster": "cluster-a", "treaty_ref": 0, "token_ref": 0 },
+      { "action": "revoke", "cluster": "cluster-a", "token_ref": 0 },
+      { "action": "validate", "cluster": "cluster-b", "token_ref": 1, "capability": "federation:read", "resource": "shared:docs", "actor": "agent:alice", "expected": "deny" }
+    ]
+  }
+]

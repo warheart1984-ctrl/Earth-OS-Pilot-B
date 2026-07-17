@@ -1,0 +1,44 @@
+{
+  "suite_id": "CCT-L5",
+  "level": "L5",
+  "description": "Multi-Cluster Evidence — Cross-cluster replay equivalence and evidence consistency",
+  "tests": [
+    {
+      "id": "L5-001",
+      "description": "Same federated test vectors produce identical decisions across clusters",
+      "test_vector_set": "frv-001",
+      "requirements": [
+        "identical_federated_decisions",
+        "identical_registry_hash_chains",
+        "identical_federated_replay_logs"
+      ]
+    },
+    {
+      "id": "L5-002",
+      "description": "Federated evidence packets are reproducible across implementations",
+      "requirements": [
+        "evidence_packet_hashes_match_across_clusters",
+        "registry_state_consistent_across_clusters",
+        "replay_decisions_identical_across_clusters"
+      ]
+    },
+    {
+      "id": "L5-003",
+      "description": "Conflict resolution produces deterministic outcomes",
+      "steps": [
+        { "action": "simulate_conflict", "type": "divergent_registry" },
+        { "action": "resolve_conflict", "protocol": "latest_timestamp" },
+        { "action": "verify_resolution", "expected": "deterministic" }
+      ],
+      "expected": "deterministic_resolution"
+    },
+    {
+      "id": "L5-004",
+      "description": "Federated replay equivalence across hardware architectures",
+      "requirements": [
+        "replay_decisions_match_across_architectures",
+        "registry_hashes_match_across_architectures"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+# Archives
+*.zip
+*.tar
+*.gz
+*.rar
+
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Build Files
+dist/
+build/
+*.log
+
+# Temporary Files
+tmp/
+temp/
+*.tmp
+
+# Node Modules (if added later)
+node_modules/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+
+# Environment Files
+.env
+.env.local
+.env.*.local
+
+# Backup Files
+*.bak
+*.backup
