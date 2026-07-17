@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://earthos-pilot-b/skills/declarations/federated-governance.S1.json",
+  "skill_id": "federated-governance",
+  "version": "1.0",
+  "domain": "gov-multi-agent",
+  "declared_capabilities": [
+    "federation_scope_management",
+    "cross_domain_coordination",
+    "jurisdictional_conflict_resolution",
+    "federation_activity_logging"
+  ],
+  "conformance_suite": "SKILL-CONFORMANCE-SUITE.R1",
+  "dependencies": [
+    "cross-domain-governance-alignment",
+    "sovereignty-boundary-detection"
+  ],
+  "boundary_constraints": [
+    "MUST_RESPECT_SOVEREIGNTY_BOUNDARIES",
+    "MUST_PRODUCE_EVIDENCE_RECEIPTS",
+    "MUST_OPERATE_WITHIN_FEDERATION_TREATY"
+  ],
+  "steward": "warheart1984-ctrl",
+  "mandate_ref": "EARTHOS-PILOT-B-GOVERNANCE-MANDATE",
+  "evidence_receipt": {
+    "receipt_id": "550e8400-e29b-41d4-a716-446655440003",
+    "signer": "skill-orchestrator",
+    "signature": "federated-governance-skill-declaration-signature",
+    "hash": "jkl012mno345",
+    "timestamp": "2026-07-17T10:00:00Z"
+  },
+  "temporal_validity": {
+    "start": "2026-07-17T00:00:00Z",
+    "end": null
+  }
+}
