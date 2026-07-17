@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://earthos-pilot-b/sx-ck-integration/declarations/constitutional-kernel-integration.S1.json",
+  "skill_id": "constitutional-kernel-integration",
+  "version": "1.0",
+  "domain": "gov-kernel",
+  "declared_capabilities": [
+    "constitutional_kernel_integration",
+    "federation_constitutional_validation",
+    "multi_world_federation_management",
+    "cross_domain_constitutional_alignment"
+  ],
+  "conformance_suite": "SKILL-CONFORMANCE-SUITE.R1",
+  "dependencies": [
+    "temporal-governance-compliance",
+    "evidence-replay-verification"
+  ],
+  "boundary_constraints": [
+    "MUST_COMPLY_WITH_CONSTITUTIONAL_KERNEL",
+    "MUST_PRODUCE_EVIDENCE_RECEIPTS",
+    "MUST_MAINTAIN_FEDERATION_SOVEREIGNTY"
+  ],
+  "steward": "warheart1984-ctrl",
+  "mandate_ref": "EARTHOS-PILOT-B-SXCK-GOVERNANCE-MANDATE",
+  "evidence_receipt": {
+    "receipt_id": "550e8400-e29b-41d4-a716-446655440007",
+    "signer": "skill-orchestrator",
+    "signature": "constitutional-kernel-integration-skill-declaration-signature",
+    "hash": "def345ghi678",
+    "timestamp": "2026-07-17T10:00:00Z"
+  },
+  "temporal_validity": {
+    "start": "2026-07-17T00:00:00Z",
+    "end": null
+  }
+}
