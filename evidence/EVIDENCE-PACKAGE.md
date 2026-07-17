@@ -16,7 +16,7 @@
 cd federation/core
 npm install
 npm run build        # compiles src/ → dist/
-npm test             # runs 7 tests via node:test
+npm test             # runs 17 tests via node:test
 ```
 
 **Dependency:** TypeScript ^5.9.3 (devDependency only). Zero runtime dependencies.
@@ -38,10 +38,12 @@ See `federation/core/package.json` and `federation/core/package-lock.json`.
 | L4 | CCT-L4 | 4 (federated conformance) | All pass via FederationEngine tests |
 | L5 | CCT-L5 | 4 (multi-cluster evidence) | L5-001/002 passable; L5-003/004 require cross-env |
 
-**Unit Test Results:** 7 tests, 3 suites, 0 failures (167ms).
+**Unit Test Results:** 17 tests, 5 suites, 0 failures.
 
 | Suite | Tests | Pass |
 |-------|-------|------|
+| FederatedCPBA | 5 | 5 |
+| FederatedCPRM | 5 | 5 |
 | FederatedRegistry | 2 | 2 |
 | FederationEngine | 3 | 3 |
 | FederationVerifier | 2 | 2 |
@@ -87,4 +89,4 @@ Note: Pilot B extends Pilot A's CAL/CRC/CPBA/CPRM schemas via federation. Standa
 4. **Standalone schemas** — inherited from CESF v1.2 canonical definitions; documented at `schemas/README.md`.
 5. **Federation review governance** — `governance/federation-review/` is empty; formal review process not yet established.
 6. **L5-003/004** (conflict resolution determinism, cross-architecture equivalence) require multi-node deployment to validate.
-7. **Federation-specific CPBA/CPRM** — not yet implemented; currently inherits from Pilot A.
+7. **Federation-specific CPBA/CPRM** — implemented at `federation/core/src/cpba-federated.ts` and `cprm-federated.ts`. 5 barriers (B1-FED through B5-FED), 10 contracts (C1-FED through C10-FED), all passing.
