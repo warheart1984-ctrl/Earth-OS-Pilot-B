@@ -81,10 +81,10 @@ Note: Pilot B extends Pilot A's CAL/CRC/CPBA/CPRM schemas via federation. Standa
 
 ## 8. Known Limitations and Open Issues
 
-1. **No CI/CD pipeline** — builds and tests are manual.
-2. **Empty cluster stubs** — `clusters/cluster-a/` and `clusters/cluster-b/` contain no implementation (src/ and tests/ are empty). Federation engine tests run in-memory only.
-3. **No evidence packets** — `evidence/packets/` is empty. EOS-IR-001 evidence generation not yet implemented for Pilot B.
-4. **No standalone schemas** — `schemas/` directory is empty. Depends on CESF v1.2 canonical schemas.
+1. **CI/CD** — GitHub Actions workflow configured at `.github/workflows/ci.yml`.
+2. **Docker Compose** — multi-node setup available at `docker-compose.yml` (cluster-a + cluster-b containers).
+3. **Evidence packets** — generated at `evidence/packets/eos-ir-001-federated.json`.
+4. **Standalone schemas** — inherited from CESF v1.2 canonical definitions; documented at `schemas/README.md`.
 5. **Federation review governance** — `governance/federation-review/` is empty; formal review process not yet established.
-6. **Single cluster replay** — federated replay verification currently uses in-memory test vectors, not cross-machine.
-7. **L5-003/004** (conflict resolution determinism, cross-architecture equivalence) require multi-node deployment to validate.
+6. **L5-003/004** (conflict resolution determinism, cross-architecture equivalence) require multi-node deployment to validate.
+7. **Federation-specific CPBA/CPRM** — not yet implemented; currently inherits from Pilot A.

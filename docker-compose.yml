@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  cluster-a:
+    build:
+      context: .
+      dockerfile: cluster-a/Dockerfile
+    container_name: earthos-pilot-b-cluster-a
+    hostname: cluster-a
+    environment:
+      - CLUSTER_ID=cluster-a
+      - NODE_ENV=test
+
+  cluster-b:
+    build:
+      context: .
+      dockerfile: cluster-b/Dockerfile
+    container_name: earthos-pilot-b-cluster-b
+    hostname: cluster-b
+    environment:
+      - CLUSTER_ID=cluster-b
+      - NODE_ENV=test
+    depends_on:
+      cluster-a:
+        condition: service_completed_successfully

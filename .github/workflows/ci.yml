@@ -1,0 +1,40 @@
+name: CI - EarthOS Pilot B
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [22]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Print versions
+        run: |
+          node --version
+          npm --version
+
+      - name: Install dependencies
+        working-directory: federation/core
+        run: npm install
+
+      - name: Build
+        working-directory: federation/core
+        run: npm run build
+
+      - name: Test
+        working-directory: federation/core
+        run: npm test

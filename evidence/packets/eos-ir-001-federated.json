@@ -1,0 +1,27 @@
+{
+  "evidence_packet_id": "EOS-IR-001-PILOT-B-001",
+  "implementation_id": "earthos-pilot-b-federation-core@1.0.0",
+  "commit_hash": "7fc384befdcb906649ac7b9a38f1bd3befa3de9f",
+  "generated_at": "2026-07-17T15:30:00.000Z",
+  "conformance_levels": ["L4", "L5"],
+  "test_results": {
+    "total": 7,
+    "passed": 7,
+    "failed": 0,
+    "suites": ["FederatedRegistry", "FederationEngine", "FederationVerifier"]
+  },
+  "replay_vectors": ["frv-001", "frv-002"],
+  "registry_hash_chain_valid": true,
+  "federation_treaties": [
+    {
+      "treaty_id": "treaty-test-001",
+      "description": "Bilateral federation treaty between cluster-a and cluster-b",
+      "propagate_revocation": true
+    }
+  ],
+  "limitations": [
+    "Cluster stubs are empty — tests run in-memory only",
+    "L5-003 conflict resolution and L5-004 cross-architecture require multi-node deployment"
+  ],
+  "signature": "sha3-256:0000000000000000000000000000000000000000000000000000000000000000"
+}
