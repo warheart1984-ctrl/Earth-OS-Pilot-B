@@ -1,0 +1,279 @@
+version: '3.8'
+
+services:
+  # ============================================================================
+  # Constitutional Runtime (Layer 3) - P0 Core
+  # ============================================================================
+
+  governance-kernel:
+    image: ghcr.io/warheart1984-ctrl/osa/governance-kernel:osa-v1.0.0
+    container_name: osa-governance-kernel
+    environment:
+      - KERNEL_ID=gk-prod-01
+      - CONSTITUTIONAL_VERSION=OSA-Constitution-v1.0
+      - ACC_VERSION=OSA-ACC-v1.0
+      - CSD_VERSION=OSA-CSD-v1.0
+      - CECD_VERSION=OSA-CECD-v1.0
+      - ECED_VERSION=OSA-ECED-v1.0
+      - SIGNING_KEY_FILE=/keys/signing.key
+      - VERIFYING_KEY_FILE=/keys/verifying.key.pub
+      - EVIDENCE_LEDGER_URL=http://evidence-ledger:8082
+      - POLICY_ENGINE_URL=http://policy-engine:8083
+      - AUDIT_ENGINE_URL=http://audit-engine:8084
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./keys:/keys:ro
+      - governance-kernel-data:/data
+    networks:
+      - osa-constitutional
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8081/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1.0'
+      replicas: 3
+      update_config:
+        parallelism: 1
+        delay: 30s
+      restart_policy:
+        condition: on-failure
+
+  evidence-ledger:
+    image: ghcr.io/warheart1984-ctrl/osa/evidence-ledger:osa-v1.0.0
+    container_name: osa-evidence-ledger
+    environment:
+      - DATA_DIR=/data/ledger
+      - CHECKPOINT_INTERVAL=10000
+      - PARTITION_BY_LEVEL=true
+      - SIGNING_KEY_FILE=/keys/signing.key
+      - VERIFYING_KEY_FILE=/keys/verifying.key.pub
+    ports:
+      - "8082:8082"
+    volumes:
+      - ./keys:/keys:ro
+      - evidence-ledger-data:/data/ledger
+    networks:
+      - osa-constitutional
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8082/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+          cpus: '1.0'
+      replicas: 3
+
+  policy-engine:
+    image: ghcr.io/warheart1984-ctrl/osa/policy-engine:osa-v1.0.0
+    container_name: osa-policy-engine
+    environment:
+      - WASM_CACHE_DIR=/cache/wasm
+      - OPA_BINARY_PATH=/usr/bin/opa
+    ports:
+      - "8083:8083"
+    volumes:
+      - policy-engine-cache:/cache/wasm
+    networks:
+      - osa-constitutional
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8083/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1.0'
+      replicas: 3
+
+  decision-engine:
+    image: ghcr.io/warheart1984-ctrl/osa/decision-engine:osa-v1.0.0
+    container_name: osa-decision-engine
+    environment:
+      - KERNEL_URL=http://governance-kernel:8081
+      - POLICY_ENGINE_URL=http://policy-engine:8083
+      - EVIDENCE_LEDGER_URL=http://evidence-ledger:8082
+      - AUDIT_ENGINE_URL=http://audit-engine:8084
+    ports:
+      - "8084:8084"
+    networks:
+      - osa-constitutional
+    depends_on:
+      - governance-kernel
+      - policy-engine
+      - evidence-ledger
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8084/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1.0'
+      replicas: 3
+
+  # ============================================================================
+  # Platform Runtime (Layer 3) - P1
+  # ============================================================================
+
+  agent-runtime:
+    image: ghcr.io/warheart1984-ctrl/osa/agent-runtime:osa-v1.0.0
+    container_name: osa-agent-runtime
+    environment:
+      - KERNEL_URL=http://governance-kernel:8081
+      - DECISION_ENGINE_URL=http://decision-engine:8084
+      - EVIDENCE_LEDGER_URL=http://evidence-ledger:8082
+    ports:
+      - "8085:8085"
+    networks:
+      - osa-constitutional
+    depends_on:
+      - governance-kernel
+      - decision-engine
+      - evidence-ledger
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+      replicas: 2
+
+  mission-orchestrator:
+    image: ghcr.io/warheart1984-ctrl/osa/mission-orchestrator:osa-v1.0.0
+    container_name: osa-mission-orchestrator
+    environment:
+      - KERNEL_URL=http://governance-kernel:8081
+      - DECISION_ENGINE_URL=http://decision-engine:8084
+      - EVIDENCE_LEDGER_URL=http://evidence-ledger:8082
+      - AUDIT_ENGINE_URL=http://audit-engine:8084
+    ports:
+      - "8086:8086"
+    networks:
+      - osa-constitutional
+    depends_on:
+      - governance-kernel
+      - decision-engine
+      - evidence-ledger
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+      replicas: 2
+
+  simulation-runtime:
+    image: ghcr.io/warheart1984-ctrl/osa/simulation-runtime:osa-v1.0.0
+    container_name: osa-simulation-runtime
+    environment:
+      - KERNEL_URL=http://governance-kernel:8081
+      - DECISION_ENGINE_URL=http://decision-engine:8084
+      - EVIDENCE_LEDGER_URL=http://evidence-ledger:8082
+      - AUDIT_ENGINE_URL=http://audit-engine:8084
+      - CHECKPOINT_INTERVAL=100
+    ports:
+      - "8087:8087"
+    networks:
+      - osa-constitutional
+    depends_on:
+      - governance-kernel
+      - decision-engine
+      - evidence-ledger
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+          cpus: '2.0'
+      replicas: 2
+
+  # ============================================================================
+  # Layer 4 Intelligence Services - API Gateway
+  # ============================================================================
+
+  api-gateway:
+    image: ghcr.io/warheart1984-ctrl/osa/api-gateway:osa-v1.0.0
+    container_name: osa-api-gateway
+    environment:
+      - KERNEL_ENDPOINT=http://governance-kernel:8081
+      - LEDGER_ENDPOINT=http://evidence-ledger:8082
+      - DECISION_ENDPOINT=http://decision-engine:8084
+      - AGENT_ENDPOINT=http://agent-runtime:8085
+      - MISSION_ENDPOINT=http://mission-orchestrator:8086
+      - SIMULATION_ENDPOINT=http://simulation-runtime:8087
+      - JWT_SECRET=${JWT_SECRET}
+      - CORS_ORIGINS=*
+    ports:
+      - "8080:8080"
+    networks:
+      - osa-constitutional
+    depends_on:
+      - governance-kernel
+      - evidence-ledger
+      - decision-engine
+      - agent-runtime
+      - mission-orchestrator
+      - simulation-runtime
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+      replicas: 3
+
+  # ============================================================================
+  # Federation Gateway (EarthOS Pilot B)
+  # ============================================================================
+
+  federation-gateway:
+    image: ghcr.io/warheart1984-ctrl/osa/federation-gateway:osa-v1.0.0
+    container_name: osa-federation-gateway
+    environment:
+      - GATEWAY_ID=osa-federation-gateway-prod
+      - EVIDENCE_LEDGER_URL=http://evidence-ledger:8082
+      - KERNEL_URL=http://governance-kernel:8081
+      - SIGNING_KEY_FILE=/keys/federation-signing.key
+      - VERIFYING_KEY_FILE=/keys/federation-verifying.key.pub
+    ports:
+      - "8088:8088"
+    volumes:
+      - ./keys:/keys:ro
+    networks:
+      - osa-constitutional
+    depends_on:
+      - governance-kernel
+      - evidence-ledger
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+      replicas: 2
+
+networks:
+  osa-constitutional:
+    driver: overlay
+    attachable: true
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+volumes:
+  governance-kernel-data:
+  evidence-ledger-data:
+  policy-engine-cache:
