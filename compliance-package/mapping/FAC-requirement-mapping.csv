@@ -1,0 +1,19 @@
+FAC Area,Sub-requirement,Description,Code Path,Evidence ID,Test ID,Status
+FAC-1,FAC-1.1,All authority derives from Constitution,runtime/governance-kernel/src/kernel.ts:205-245 (grantAuthority),E2-OSA-FRA-001,L2-GK-001,PASS
+FAC-1,FAC-1.2,Authority grants are auditable,runtime/governance-kernel/src/kernel.ts:236-242 (emitAudit on grant),E3-OSA-FRA-012,L2-GK-001,PASS
+FAC-1,FAC-1.3,Authority revocation is immediate,runtime/governance-kernel/src/kernel.ts:247-287 (revokeAuthority),E2-OSA-FRA-001,L2-GK-002,PASS
+FAC-1,FAC-1.4,Delegation depth ≤ 3,runtime/governance-kernel/src/kernel.ts:289-330 (delegateAuthority:303),E2-OSA-FRA-003,L2-GK-003,PASS
+FAC-2,FAC-2.1,All operations produce E2+ evidence,runtime/decision-engine/src/decision-engine.ts:161-200 (produceDecisionEvidence),E2-OSA-FRA-007..011,L2-DE-001,PASS
+FAC-2,FAC-2.2,Evidence chain integrity,runtime/evidence-ledger/src/evidence-ledger.ts:322-350 (verifyChain),E3-OSA-FRA-014,L3-CV-001..006,PASS
+FAC-2,FAC-2.3,Causality completeness,runtime/evidence-ledger/src/evidence-ledger.ts:450-480 (importEvidence),E3-OSA-FRA-015,L3-CC-001..005,PASS
+FAC-2,FAC-2.4,Immutable evidence storage,runtime/evidence-ledger/src/evidence-ledger.ts:147-193 (initSchema, append),E0-E4 partitioning,L3-EP-001..005,PASS
+FAC-3,FAC-3.1,Decision replay,runtime/decision-engine/src/decision-engine.ts:247-320 (replay),E3-OSA-FRA-013,L2-RE-001..004,PASS
+FAC-3,FAC-3.2,Simulation replay,runtime/simulation-runtime/src/simulation-runtime.ts:400-480 (replaySimulation),E3-OSA-FRA-013,L2-SR-004,PASS
+FAC-3,FAC-3.3,Bitwise determinism,runtime/decision-engine/src/decision-engine.ts:290-310 (compareOutcomes),E3-OSA-FRA-013,L3-RD-001..005,PASS
+FAC-4,FAC-4.1,Verification engine,runtime/decision-engine/src/decision-engine.ts:247-320 (ReplayVerificationResult),E3-OSA-FRA-013,L2-VE-001..004,PASS
+FAC-4,FAC-4.2,Policy verification,runtime/policy-engine/src/policy-engine.ts:200-250 (generateVerificationProof),E2-OSA-FRA-004..006,L2-PE-002,PASS
+FAC-4,FAC-4.3,Chain verification,runtime/evidence-ledger/src/evidence-ledger.ts:322-350 (verifyChain),E3-OSA-FRA-014,L3-CV-001..006,PASS
+FAC-5,FAC-5.1,FEEP evidence exchange,sdk/cgl-ts/src/clients/federation.rs:45-120 (importEvidence/exportEvidence),E2-OSA-FRA-001,L5-EE-001..004,PASS
+FAC-5,FAC-5.2,MLAP authority import,sdk/cgl-ts/src/clients/federation.rs:180-250 (importFederatedAuthority),E2-OSA-FRA-001,L5-TE-001..004,PASS
+FAC-5,FAC-5.3,Revocation propagation,sdk/cgl-ts/src/clients/federation.rs:150-170 (propagateRevocation),E2-OSA-FRA-001,L5-RP-001..003,PASS
+FAC-5,FAC-5.4,Cross-domain causality,sdk/cgl-ts/src/clients/federation.rs:45-120 (causality import),E3-OSA-FRA-015,L5-CD-001..003,PASS
