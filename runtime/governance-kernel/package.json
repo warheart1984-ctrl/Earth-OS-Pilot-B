@@ -1,0 +1,21 @@
+{
+  "name": "@osa/governance-kernel",
+  "version": "1.0.0",
+  "description": "OSA Governance Kernel - Constitutional enforcement point",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "conformance": "jest --config=conformance/jest.config.js"
+  },
+  "dependencies": {
+    "@osa/evidence-ledger": "file:../evidence-ledger",
+    "@osa/constitutional-types": "file:../../packages/constitutional-types"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "jest": "^29.0.0",
+    "@types/jest": "^29.0.0"
+  }
+}

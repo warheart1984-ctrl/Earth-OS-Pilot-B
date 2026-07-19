@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2022"],
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": false,
+    "paths": {
+      "@osa/constitutional-types": ["../../packages/constitutional-types/src"],
+      "@osa/governance-kernel": ["../../runtime/governance-kernel/src"],
+      "@osa/evidence-ledger": ["../../runtime/evidence-ledger/src"],
+      "@osa/policy-engine": ["../../runtime/policy-engine/src"],
+      "@osa/decision-engine": ["../../runtime/decision-engine/src"],
+      "@osa/agent-runtime": ["../../runtime/agent-runtime/src"],
+      "@osa/mission-orchestrator": ["../../runtime/mission-orchestrator/src"],
+      "@osa/simulation-runtime": ["../../runtime/simulation-runtime/src"],
+      "@osa/cgl": ["../../sdk/cgl-ts/src"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

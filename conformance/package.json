@@ -1,0 +1,32 @@
+{
+  "name": "@osa/conformance-suite",
+  "version": "1.0.0",
+  "description": "OSA Conformance Test Suite - L1 through L4 certification",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "test:L1": "jest --testPathPattern=L1",
+    "test:L2": "jest --testPathPattern=L2",
+    "test:L3": "jest --testPathPattern=L3",
+    "test:L4": "jest --testPathPattern=L4",
+    "certify": "jest --config=certification/jest.config.js"
+  },
+  "dependencies": {
+    "@osa/governance-kernel": "^1.0.0",
+    "@osa/evidence-ledger": "^1.0.0",
+    "@osa/policy-engine": "^1.0.0",
+    "@osa/decision-engine": "^1.0.0",
+    "@osa/agent-runtime": "^1.0.0",
+    "@osa/mission-orchestrator": "^1.0.0",
+    "@osa/simulation-runtime": "^1.0.0",
+    "@osa/constitutional-types": "^1.0.0",
+    "@osa/cgl": "^1.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "jest": "^29.0.0",
+    "@types/jest": "^29.0.0"
+  }
+}
