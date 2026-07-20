@@ -17,6 +17,7 @@
 | Constitutional Specification Document v1.0 | `constitution/OSA-CSD-v1.0.md` | `sha3-256:70f9c5cf51d80dfb9fe5078dd59cf6377d38d7e50f52d7422f8b6a2c5163a14b` |
 | Constitutional Evidence & Consequence Document v1.0 | `constitution/OSA-CECD-v1.0.md` | `sha3-256:27acd40f1b84a1dcc05b166c91b98154d429ec74d1f891e84e2781b5d87659ba` |
 | ECED Meta-Model v1.0 | `constitution/OSA-ECED-v1.0.md` | `sha3-256:6a59804b08551000db6c7b9f5401f250539ad8ef87111affc6c4bbb95f80acb3` |
+| **Computational Emergence Threshold v1.0** | `constitution/OSA-CET-v1.0.md` | `sha3-256:d730decde3b53fa49a18cbdf9f89e81fb79dd76623191c2ec654e2845e006438` |
 
 ### Normative Specifications (Layer 2-9)
 
