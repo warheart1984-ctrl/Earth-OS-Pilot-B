@@ -274,7 +274,7 @@ The OuterSpace AI (OSA) Constitutional Runtime has been implemented, tested, and
 | FRA Evidence Cycle Logs | `compliance-package/evidence/FRA-evidence-cycle.md` | E4-OSA-FRA-016 | sha3-256:... |
 | Independent Replay Demo | `compliance-package/replay/replay-demonstration.md` | E4-OSA-REPLAY-001 | sha3-256:... |
 | L4 Certification Report | `compliance-package/report/L4-certification-report.md` | E4-OSA-CERT-001 | sha3-256:... |
-| Evidence Freeze Manifest | `evidence-freeze/v1.0/EVIDENCE-FREEZE-MANIFEST.md` | E4-OSA-FREEZE-001 | sha3-256:... |
+| Evidence Freeze Manifest | `evidence-freeze/v1.0/EVIDENCE-FREEZE-MANIFEST.md` | E4-OSA-FREEZE-001 | sha3-256:6642091de86253ac47a25cbded264c91d5f7465f6cfbaed3ee74423e4ab14245 |
 | Git Tag | `osa-v1.0.0` | E4-OSA-TAG-001 | commit `c7166875596f9347622abed6271f72eb15ce39fb` |
 
 ---

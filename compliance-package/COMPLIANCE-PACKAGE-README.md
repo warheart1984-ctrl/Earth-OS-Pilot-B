@@ -134,7 +134,7 @@ E3-OSA-FRA-015: Causality completeness - 0 orphan references detected
 ### Phase 5: Constitutional Certification (E4)
 ```
 E4-OSA-FRA-016: L4 Certification granted - all requirements satisfied
-E4-OSA-FRA-017: Evidence Freeze v1.0 hash verified (sha3-256:...)
+E4-OSA-FRA-017: Evidence Freeze v1.0 hash verified (sha3-256:6642091de86253ac47a25cbded264c91d5f7465f6cfbaed3ee74423e4ab14245)
 E4-OSA-FRA-018: Immutable tag osa-v1.0.0 confirmed
 ```
 

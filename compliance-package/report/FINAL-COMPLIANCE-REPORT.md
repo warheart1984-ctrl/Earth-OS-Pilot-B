@@ -115,7 +115,7 @@ See: `evidence-freeze/v1.0/EVIDENCE-FREEZE-MANIFEST.md`
 ```bash
 git checkout osa-v1.0.0
 sha3-256sum evidence-freeze/v1.0/**/* | sha3-256sum
-# Compare with EVIDENCE-FREEZE-MANIFEST.md hash
+# Expected aggregate (EVIDENCE-FREEZE-MANIFEST.md **Hash:** field): 6642091de86253ac47a25cbded264c91d5f7465f6cfbaed3ee74423e4ab14245
 ```
 
 ---

@@ -90,7 +90,7 @@ evidence_package_hash:
   value: a3be32f78c06c28142f04523b634a0a44fc13550
   path: evidence-freeze/v1.0/
   manifest_path: evidence-freeze/v1.0/EVIDENCE-FREEZE-MANIFEST.md
-  manifest_hash: sha3-256:pending-freeze-manifest-hash
+  manifest_hash: sha3-256:6642091de86253ac47a25cbded264c91d5f7465f6cfbaed3ee74423e4ab14245
 
 certification_record:
   level: L4
