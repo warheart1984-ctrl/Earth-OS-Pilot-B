@@ -1,0 +1,124 @@
+# OSA Release Record — Constitutional Freeze v1.0
+# Schema: ../RELEASE-RECORD-SCHEMA.yaml
+# Lineage: RELEASE-LINEAGE.md
+
+release_tag: osa-v1.0.0
+git_commit: c7166875596f9347622abed6271f72eb15ce39fb
+frozen_at: "2026-07-19"
+
+lineage:
+  product: OSA
+  predecessor: null
+  successor: null
+
+constitutional_version:
+  version: "1.0.0"
+  documents:
+    - name: OSA Constitution v1.0
+      path: constitution/OSA-Constitution-v1.0.md
+      evidence_id: E4-OSA-CONST-20260719-001
+    - name: Authority & Consequence Contract v1.0
+      path: constitution/OSA-ACC-v1.0.md
+      evidence_id: E4-OSA-ACC-20260719-001
+    - name: Constitutional Specification Document v1.0
+      path: constitution/OSA-CSD-v1.0.md
+      evidence_id: E4-OSA-CSD-20260719-001
+    - name: Constitutional Evidence & Consequence Document v1.0
+      path: constitution/OSA-CECD-v1.0.md
+      evidence_id: E4-OSA-CECD-20260719-001
+    - name: ECED Meta-Model v1.0
+      path: constitution/OSA-ECED-v1.0.md
+      evidence_id: E4-OSA-ECED-20260719-001
+
+normative_specification_version:
+  version: "1.0.0"
+  specifications:
+    - name: Reference Architecture v1.0
+      path: specs/OSA-Reference-Architecture-v1.0.md
+    - name: API Specifications v1.0
+      path: specs/OSA-API-Specifications-v1.0.md
+    - name: Runtime Specifications v1.0
+      path: specs/OSA-Runtime-Specifications-v1.0.md
+    - name: Evidence Specification v1.0
+      path: specs/OSA-Evidence-Specification-v1.0.md
+    - name: Conformance Specification v1.0
+      path: specs/OSA-Conformance-Specification-v1.0.md
+    - name: Constitutional Governance Library v1.0
+      path: specs/OSA-CGL-v1.0.md
+
+runtime_version:
+  version: "1.0.0"
+  image_tag: osa-v1.0.0
+  registry: ghcr.io/warheart1984-ctrl/osa
+  modules:
+    - name: Governance Kernel
+      path: runtime/governance-kernel
+      npm_package: "@osa/governance-kernel"
+    - name: Evidence Ledger
+      path: runtime/evidence-ledger
+      npm_package: "@osa/evidence-ledger"
+    - name: Policy Engine
+      path: runtime/policy-engine
+      npm_package: "@osa/policy-engine"
+    - name: Decision Engine
+      path: runtime/decision-engine
+      npm_package: "@osa/decision-engine"
+    - name: Agent Runtime
+      path: runtime/agent-runtime
+      npm_package: "@osa/agent-runtime"
+    - name: Mission Orchestrator
+      path: runtime/mission-orchestrator
+      npm_package: "@osa/mission-orchestrator"
+    - name: Simulation Runtime
+      path: runtime/simulation-runtime
+      npm_package: "@osa/simulation-runtime"
+    - name: API Gateway
+      path: api/gateway
+      npm_package: "@osa/api-gateway"
+    - name: Federation Gateway
+      path: federation/core
+      npm_package: "@osa/federation-gateway"
+
+conformance_suite_version:
+  version: "1.0.0"
+  package: "@osa/conformance-suite"
+  path: conformance/
+  levels_certified: [L1, L2, L3, L4, L5]
+
+evidence_package_hash:
+  algorithm: git-tree
+  value: a3be32f78c06c28142f04523b634a0a44fc13550
+  path: evidence-freeze/v1.0/
+  manifest_path: evidence-freeze/v1.0/EVIDENCE-FREEZE-MANIFEST.md
+  manifest_hash: sha3-256:pending-freeze-manifest-hash
+
+certification_record:
+  level: L4
+  certificate_id: OSA-L4-CERT-20260719-001
+  evidence_id: E4-OSA-CERT-20260719-001
+  issued: "2026-07-19"
+  valid_until: constitutional_amendment
+  authority: Constitutional Review Council
+  fac_compliance:
+    requirements_satisfied: 18
+    requirements_total: 18
+  conformance:
+    tests_passed: 108
+    tests_total: 108
+    replay_match_rate: "1000/1000"
+  reports:
+    - path: compliance-package/report/FINAL-COMPLIANCE-REPORT.md
+      report_id: OSA-COMPLIANCE-FINAL-20260719-001
+    - path: compliance-package/report/COMPLIANCE-REPORT-OSA-v1.0.0.md
+      report_id: OSA-COMPLIANCE-20260719-001
+    - path: compliance-package/COMPLIANCE-PACKAGE-README.md
+      report_id: E4-OSA-PKG-001
+
+repository:
+  canonical: https://github.com/warheart1984-ctrl/OSA
+  mirror: https://github.com/warheart1984-ctrl/Earth-OS-Pilot-B
+  default_branch: main
+
+ci_cd:
+  production_tag_gate: osa-v1.0.0
+  workflow: .github/workflows/ci-cd.yml

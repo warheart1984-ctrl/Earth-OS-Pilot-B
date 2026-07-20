@@ -1,0 +1,298 @@
+# RELEASE-RECORD-SCHEMA.yaml
+# Machine-readable schema for OSA governed release records.
+# See RELEASE-LINEAGE.md for stewardship context and amendment path.
+
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: OSA Release Record
+description: >
+  Certification record for a governed OSA constitutional runtime release.
+  Every release tag must have releases/<release_tag>/RELEASE-RECORD.yaml
+  conforming to this schema.
+
+type: object
+required:
+  - release_tag
+  - git_commit
+  - frozen_at
+  - constitutional_version
+  - normative_specification_version
+  - runtime_version
+  - conformance_suite_version
+  - evidence_package_hash
+  - certification_record
+
+properties:
+  release_tag:
+    type: string
+    pattern: "^osa-v\\d+\\.\\d+\\.\\d+$"
+    description: Immutable git tag (e.g. osa-v1.0.0)
+    example: osa-v1.0.0
+
+  git_commit:
+    type: string
+    pattern: "^[0-9a-f]{40}$"
+    description: Full SHA-1 of the tagged commit on canonical OSA repository
+    example: c7166875596f9347622abed6271f72eb15ce39fb
+
+  frozen_at:
+    type: string
+    format: date
+    description: Date the evidence freeze was ratified (ISO 8601)
+    example: "2026-07-19"
+
+  lineage:
+    type: object
+    description: Position in the release lineage chain
+    properties:
+      product:
+        type: string
+        const: OSA
+      predecessor:
+        type: ["string", "null"]
+        description: Prior release tag, or null for first constitutional freeze
+      successor:
+        type: ["string", "null"]
+        description: Next release tag when known; null if current production baseline
+    required:
+      - product
+
+  constitutional_version:
+    type: object
+    description: Layer 1 constitutional documents
+    required:
+      - version
+      - documents
+    properties:
+      version:
+        type: string
+        pattern: "^\\d+\\.\\d+\\.\\d+$"
+      documents:
+        type: array
+        minItems: 1
+        items:
+          type: object
+          required:
+            - name
+            - path
+          properties:
+            name:
+              type: string
+            path:
+              type: string
+            evidence_id:
+              type: string
+
+  normative_specification_version:
+    type: object
+    description: Layer 2-9 normative specifications
+    required:
+      - version
+      - specifications
+    properties:
+      version:
+        type: string
+        pattern: "^\\d+\\.\\d+\\.\\d+$"
+      specifications:
+        type: array
+        minItems: 1
+        items:
+          type: object
+          required:
+            - name
+            - path
+          properties:
+            name:
+              type: string
+            path:
+              type: string
+
+  runtime_version:
+    type: object
+    description: Certified runtime modules and container images
+    required:
+      - version
+      - image_tag
+      - registry
+    properties:
+      version:
+        type: string
+        pattern: "^\\d+\\.\\d+\\.\\d+$"
+      image_tag:
+        type: string
+        description: Docker/OCI tag shared by all production services
+      registry:
+        type: string
+        description: Container registry prefix (no trailing slash)
+      modules:
+        type: array
+        items:
+          type: object
+          required:
+            - name
+            - path
+          properties:
+            name:
+              type: string
+            path:
+              type: string
+            npm_package:
+              type: string
+
+  conformance_suite_version:
+    type: object
+    description: Conformance suite used for certification
+    required:
+      - version
+      - package
+      - path
+    properties:
+      version:
+        type: string
+        pattern: "^\\d+\\.\\d+\\.\\d+$"
+      package:
+        type: string
+        description: NPM package name
+      path:
+        type: string
+      levels_certified:
+        type: array
+        items:
+          type: string
+          enum: [L1, L2, L3, L4, L5]
+
+  evidence_package_hash:
+    type: object
+    description: Binding to the frozen evidence package
+    required:
+      - algorithm
+      - value
+      - path
+    properties:
+      algorithm:
+        type: string
+        enum: [git-tree, sha3-256, sha256]
+        description: git-tree = git tree object at tag; sha3-256 preferred when manifest finalized
+      value:
+        type: string
+      path:
+        type: string
+        description: Repository path to evidence freeze directory
+      manifest_path:
+        type: string
+      manifest_hash:
+        type: string
+        description: Aggregate hash from EVIDENCE-FREEZE-MANIFEST.md when available
+
+  certification_record:
+    type: object
+    description: L4+ certification identity and report references
+    required:
+      - level
+      - certificate_id
+      - evidence_id
+      - issued
+      - authority
+      - reports
+    properties:
+      level:
+        type: string
+        enum: [L4, L5]
+      certificate_id:
+        type: string
+      evidence_id:
+        type: string
+      issued:
+        type: string
+        format: date
+      valid_until:
+        type: string
+        description: Typically "constitutional_amendment" until superseded
+      authority:
+        type: string
+      fac_compliance:
+        type: object
+        properties:
+          requirements_satisfied:
+            type: integer
+          requirements_total:
+            type: integer
+      conformance:
+        type: object
+        properties:
+          tests_passed:
+            type: integer
+          tests_total:
+            type: integer
+          replay_match_rate:
+            type: string
+      reports:
+        type: array
+        minItems: 1
+        items:
+          type: object
+          required:
+            - path
+          properties:
+            path:
+              type: string
+            report_id:
+              type: string
+
+  repository:
+    type: object
+    description: Canonical and mirror repositories (stewardship)
+    properties:
+      canonical:
+        type: string
+      mirror:
+        type: string
+      default_branch:
+        type: string
+
+  ci_cd:
+    type: object
+    properties:
+      production_tag_gate:
+        type: string
+        description: Exact tag required by deploy-production job
+      workflow:
+        type: string
+
+# --- Template (copy to releases/<tag>/RELEASE-RECORD.yaml) ---
+#
+# release_tag: osa-vX.Y.Z
+# git_commit: "<40-char-sha>"
+# frozen_at: "YYYY-MM-DD"
+# lineage:
+#   product: OSA
+#   predecessor: osa-v...
+#   successor: null
+# constitutional_version:
+#   version: "X.Y.Z"
+#   documents: [...]
+# normative_specification_version:
+#   version: "X.Y.Z"
+#   specifications: [...]
+# runtime_version:
+#   version: "X.Y.Z"
+#   image_tag: osa-vX.Y.Z
+#   registry: ghcr.io/warheart1984-ctrl/osa
+# conformance_suite_version:
+#   version: "X.Y.Z"
+#   package: "@osa/conformance-suite"
+#   path: conformance/
+#   levels_certified: [L1, L2, L3, L4]
+# evidence_package_hash:
+#   algorithm: git-tree
+#   value: "<tree-sha>"
+#   path: evidence-freeze/vX.Y/
+#   manifest_path: evidence-freeze/vX.Y/EVIDENCE-FREEZE-MANIFEST.md
+# certification_record:
+#   level: L4
+#   certificate_id: OSA-L4-CERT-YYYYMMDD-NNN
+#   evidence_id: E4-OSA-CERT-YYYYMMDD-NNN
+#   issued: "YYYY-MM-DD"
+#   valid_until: constitutional_amendment
+#   authority: Constitutional Review Council
+#   reports:
+#     - path: compliance-package/report/FINAL-COMPLIANCE-REPORT.md

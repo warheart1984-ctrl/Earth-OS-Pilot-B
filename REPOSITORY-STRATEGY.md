@@ -97,6 +97,18 @@ git push pilot-b main:master --tags
 3. Merge on OSA
 4. Mirror updates Earth-OS-Pilot-B; do **not** open parallel PRs on Earth-OS-Pilot-B
 
+## Release lineage (stewardship)
+
+Repository strategy is part of the OSA **stewardship model**, not only Git hygiene. Governed releases form an auditable chain from product → constitutional freeze → certified reference runtime → future versions.
+
+See **[RELEASE-LINEAGE.md](./RELEASE-LINEAGE.md)** for the full lineage model, required release-record fields, and Article 9 amendment path. Machine-readable records live under `releases/<tag>/RELEASE-RECORD.yaml` (schema: `releases/RELEASE-RECORD-SCHEMA.yaml`).
+
+| Release | Tag | Record |
+|---------|-----|--------|
+| Constitutional Freeze v1.0 | `osa-v1.0.0` | [releases/osa-v1.0.0/RELEASE-RECORD.yaml](./releases/osa-v1.0.0/RELEASE-RECORD.yaml) |
+
+Tags are cut on **OSA** only; the mirror receives them via the mirror workflow.
+
 ## Constitutional baseline
 
 Immutable production baseline:
@@ -105,7 +117,7 @@ Immutable production baseline:
 git checkout osa-v1.0.0
 ```
 
-Tag `osa-v1.0.0` points to commit `c716687` (Evidence Freeze v1.0). Any production change requires Article 9 amendment and a new evidence freeze tag.
+Tag `osa-v1.0.0` points to commit `c7166875596f9347622abed6271f72eb15ce39fb` (Evidence Freeze v1.0). Any production change requires Article 9 amendment, a new evidence freeze, a new release record, and an updated CI/CD production tag gate.
 
 ## Quick reference
 

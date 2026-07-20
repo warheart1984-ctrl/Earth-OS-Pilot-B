@@ -24,7 +24,7 @@ compliance-package/
 ## 1. Repository (Evidence Freeze v1.0)
 
 **Tag:** `osa-v1.0.0`  
-**Commit:** `32dfa0d`  
+**Commit:** `c7166875596f9347622abed6271f72eb15ce39fb`  
 **Evidence ID:** `E4-OSA-FREEZE-20260719-001`
 
 ### Key Directories
