@@ -1,0 +1,38 @@
+name: Mirror to Earth-OS-Pilot-B
+
+on:
+  push:
+    branches: [main]
+    tags: ['osa-v*']
+  workflow_dispatch:
+
+jobs:
+  mirror:
+    name: Sync OSA → Earth-OS-Pilot-B
+    runs-on: ubuntu-latest
+    if: github.repository == 'warheart1984-ctrl/OSA'
+    steps:
+      - name: Checkout full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Mirror branches and tags to Earth-OS-Pilot-B
+        env:
+          MIRROR_TOKEN: ${{ secrets.PILOT_B_MIRROR_TOKEN }}
+          TARGET_REPO: warheart1984-ctrl/Earth-OS-Pilot-B
+        run: |
+          if [ -z "$MIRROR_TOKEN" ]; then
+            echo "::warning::PILOT_B_MIRROR_TOKEN is not set. Skipping mirror."
+            echo "Add a PAT with write access to Earth-OS-Pilot-B — see REPOSITORY-STRATEGY.md"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git remote add mirror "https://x-access-token:${MIRROR_TOKEN}@github.com/${TARGET_REPO}.git"
+          git push mirror HEAD:refs/heads/master --force
+          git push mirror --tags --force
+
+          echo "Mirrored to https://github.com/${TARGET_REPO} (main → master, all tags)"

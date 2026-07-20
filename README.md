@@ -1,5 +1,7 @@
 # EarthOS Pilot B — Federated Constitutional Network
 
+> **Repository note:** This folder is the OSA constitutional runtime. **Canonical GitHub repo:** [warheart1984-ctrl/OSA](https://github.com/warheart1984-ctrl/OSA) (`main`). [Earth-OS-Pilot-B](https://github.com/warheart1984-ctrl/Earth-OS-Pilot-B) is an automated mirror (`master`). See [REPOSITORY-STRATEGY.md](./REPOSITORY-STRATEGY.md) for CI/CD, releases, and local remote setup.
+
 **Version:** Pilot B  
 **Status:** Multi-Cluster Federated Governance  
 **Purpose:** Extends Pilot A into a multi-cluster, federated constitutional network enabling cross-domain authority propagation, federated revocation, and federated evidence lineage

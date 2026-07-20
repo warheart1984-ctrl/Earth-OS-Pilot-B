@@ -1,4 +1,7 @@
-name: CI - EarthOS Pilot B
+name: CI - EarthOS Pilot B (mirror smoke)
+
+# Lightweight federation build on both repos. Production CI/CD runs on OSA only.
+# See REPOSITORY-STRATEGY.md.
 
 on:
   push:
